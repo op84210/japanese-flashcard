@@ -5,7 +5,7 @@ import FlashcardComponent from '@/components/FlashcardComponent';
 import ProgressBar from '@/components/ProgressBar';
 import NavigationButtons from '@/components/NavigationButtons';
 import Settings from '@/components/Settings';
-import { FlashcardAPI, sampleFlashcards, formatFlashcardText, Flashcard, categoryMap, difficultyMap } from '@/lib/api';
+import { FlashcardAPI, sampleFlashcards, Flashcard, categoryMap, difficultyMap } from '@/lib/api';
 
 export default function Home() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
@@ -49,10 +49,6 @@ export default function Home() {
 
   const currentCard = flashcards[currentIndex];
   const progress = flashcards.length > 0 ? (studiedCards.size / flashcards.length) * 100 : 0;
-
-  // 格式化當前卡片的顯示內容
-  const formattedCard = currentCard ? 
-    (currentCard.kanji || currentCard.hiragana ? formatFlashcardText(currentCard) : currentCard) : null;
 
   const handleNext = async () => {
     if (currentCard) {
@@ -255,7 +251,7 @@ export default function Home() {
         {/* 單字卡 */}
         <div className="flex justify-center">
           <FlashcardComponent
-            card={formattedCard || currentCard}
+            card={currentCard}
             isFlipped={isFlipped}
             onFlip={handleFlip}
             onSwipeLeft={handleNext}

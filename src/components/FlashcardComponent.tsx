@@ -1,18 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-
-interface Flashcard {
-  id: number;
-  front?: string;      // 兼容舊格式
-  back?: string;       // 兼容舊格式
-  reading?: string;    // 兼容舊格式
-  kanji?: string | null;          // 新格式
-  hiragana?: string | null;       // 新格式
-  katakana?: string | null;       // 新格式
-  meaning?: string | null;        // 新格式
-  example?: string | null;        // 新格式
-}
+import { Flashcard } from '@/lib/api';
 
 interface FlashcardComponentProps {
   card: Flashcard;
@@ -33,13 +22,13 @@ export default function FlashcardComponent({
   const touchStartX = useRef<number>(0);
   const touchStartY = useRef<number>(0);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: any) => {
     setIsPressed(true);
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchEnd = (e: any) => {
     setIsPressed(false);
     
     const touchEndX = e.changedTouches[0].clientX;
@@ -61,9 +50,9 @@ export default function FlashcardComponent({
   };
 
   // 格式化顯示文字
-  const frontText = card.front || card.kanji || card.hiragana || card.katakana || '';
-  const backText = card.back || card.meaning || '';
-  const readingText = card.reading || card.hiragana || card.katakana || '';
+  const frontText = card.kanji || card.hiragana || card.katakana || '';
+  const backText = card.meaning || '';
+  const readingText = card.hiragana || card.katakana || '';
 
   return (
     <div className="perspective-1000 w-full max-w-sm swipe-container">

@@ -77,7 +77,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching flashcards:', error);
       return {
         success: false,
@@ -114,7 +114,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching flashcards by category:', error);
       return {
         success: false,
@@ -151,7 +151,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching flashcards by difficulty:', error);
       return {
         success: false,
@@ -192,7 +192,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching random flashcards:', error);
       return {
         success: false,
@@ -202,7 +202,7 @@ export class FlashcardAPI {
   }
 
   // 標記單字卡為已複習
-  static async recordProgress(cardId: number, isCorrect: boolean): Promise<ApiResponse<void>> {
+  static async recordProgress(cardId: number, _isCorrect: boolean): Promise<ApiResponse<void>> {
     try {
       const response = await fetch(`${API_BASE_URL}/Flashcards/${cardId}/review`, {
         method: 'POST',
@@ -220,7 +220,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error recording progress:', error);
       return {
         success: false,
@@ -230,7 +230,7 @@ export class FlashcardAPI {
   }
 
   // 獲取所有可用分類
-  static async getCategories(): Promise<ApiResponse<any[]>> {
+  static async getCategories(): Promise<ApiResponse<unknown[]>> {
     try {
       const response = await fetch(`${API_BASE_URL}/Flashcards/categories`, {
         method: 'GET',
@@ -249,7 +249,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching categories:', error);
       return {
         success: false,
@@ -259,7 +259,7 @@ export class FlashcardAPI {
   }
 
   // 獲取所有可用難度
-  static async getDifficulties(): Promise<ApiResponse<any[]>> {
+  static async getDifficulties(): Promise<ApiResponse<unknown[]>> {
     try {
       const response = await fetch(`${API_BASE_URL}/Flashcards/difficulties`, {
         method: 'GET',
@@ -278,7 +278,7 @@ export class FlashcardAPI {
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching difficulties:', error);
       return {
         success: false,

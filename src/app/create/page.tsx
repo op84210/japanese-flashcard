@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FlashcardAPI, categoryMap, difficultyMap } from '@/lib/api';
+import { categoryMap, difficultyMap } from '@/lib/api';
 
 interface CreateFlashcardData {
   kanji: string;
@@ -92,7 +92,7 @@ export default function CreateFlashcard() {
           text: errorData?.title || `創建失敗：HTTP ${response.status}` 
         });
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('創建單字卡錯誤:', error);
       setMessage({ 
         type: 'error', 

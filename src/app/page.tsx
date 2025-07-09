@@ -5,10 +5,20 @@ import FlashcardComponent from '@/components/FlashcardComponent';
 import ProgressBar from '@/components/ProgressBar';
 import NavigationButtons from '@/components/NavigationButtons';
 import Settings from '@/components/Settings';
-import { FlashcardAPI, sampleFlashcards, type Flashcard, formatFlashcardText } from '@/lib/api';
+import { FlashcardAPI, sampleFlashcards, formatFlashcardText } from '@/lib/api';
+
+interface FlashcardData {
+  id: number;
+  kanji: string;
+  hiragana: string;
+  katakana: string;
+  meaning: string;
+  category: string;
+  difficulty: string;
+}
 
 export default function Home() {
-  const [flashcards, setFlashcards] = useState<any[]>([]);
+  const [flashcards, setFlashcards] = useState<FlashcardData[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [studiedCards, setStudiedCards] = useState(new Set<number>());
@@ -38,7 +48,7 @@ export default function Home() {
         console.warn('API 載入失敗，使用範例資料:', response.error);
         setFlashcards(sampleFlashcards);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('載入單字卡錯誤:', err);
       setError('載入單字卡失敗，使用範例資料');
       setFlashcards(sampleFlashcards);
@@ -61,7 +71,7 @@ export default function Home() {
       // 記錄學習進度到後端
       try {
         await FlashcardAPI.recordProgress(currentCard.id, true);
-      } catch (err) {
+      } catch (err: unknown) {
         console.warn('記錄進度失敗:', err);
       }
     }

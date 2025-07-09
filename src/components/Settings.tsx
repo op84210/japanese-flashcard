@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 interface SettingsProps {
   onClose: () => void;
   onCategoryChange: (category: string) => void;

@@ -336,11 +336,81 @@ export function getDifficultyName(difficultyId: number): string {
   return difficultyNames[difficultyId as keyof typeof difficultyNames] || '未知';
 }
 
-// 範例資料 - 當後端不可用時使用（兼容舊版格式）
-export const sampleFlashcards = [
-  { id: 1, front: 'こんにちは', back: '你好', reading: 'konnichiwa', category: 'greetings', difficulty: 'easy' },
-  { id: 2, front: 'ありがとう', back: '謝謝', reading: 'arigatou', category: 'greetings', difficulty: 'easy' },
-  { id: 3, front: 'すみません', back: '對不起', reading: 'sumimasen', category: 'greetings', difficulty: 'easy' },
-  { id: 4, front: 'はじめまして', back: '初次見面', reading: 'hajimemashite', category: 'greetings', difficulty: 'medium' },
-  { id: 5, front: 'おはよう', back: '早安', reading: 'ohayou', category: 'greetings', difficulty: 'easy' },
+// 範例資料 - 當後端不可用時使用（符合 API 規格）
+export const sampleFlashcards: Flashcard[] = [
+  {
+    id: 1,
+    kanji: null,
+    hiragana: "こんにちは",
+    katakana: null,
+    meaning: "你好",
+    example: "こんにちは、元気ですか？",
+    wordType: 0,
+    difficulty: 1,
+    category: 1,
+    createdDate: "2024-01-01T00:00:00Z",
+    lastReviewedDate: null,
+    reviewCount: 0,
+    isFavorite: false
+  },
+  {
+    id: 2,
+    kanji: null,
+    hiragana: "ありがとう",
+    katakana: null,
+    meaning: "謝謝",
+    example: "ありがとうございます。",
+    wordType: 0,
+    difficulty: 1,
+    category: 1,
+    createdDate: "2024-01-01T00:00:00Z",
+    lastReviewedDate: null,
+    reviewCount: 0,
+    isFavorite: false
+  },
+  {
+    id: 3,
+    kanji: null,
+    hiragana: "すみません",
+    katakana: null,
+    meaning: "對不起",
+    example: "すみません、遅れました。",
+    wordType: 0,
+    difficulty: 1,
+    category: 1,
+    createdDate: "2024-01-01T00:00:00Z",
+    lastReviewedDate: null,
+    reviewCount: 0,
+    isFavorite: false
+  },
+  {
+    id: 4,
+    kanji: null,
+    hiragana: "はじめまして",
+    katakana: null,
+    meaning: "初次見面",
+    example: "はじめまして、よろしくお願いします。",
+    wordType: 0,
+    difficulty: 2,
+    category: 1,
+    createdDate: "2024-01-01T00:00:00Z",
+    lastReviewedDate: null,
+    reviewCount: 0,
+    isFavorite: false
+  },
+  {
+    id: 5,
+    kanji: null,
+    hiragana: "おはよう",
+    katakana: null,
+    meaning: "早安",
+    example: "おはよう、今日もがんばろう。",
+    wordType: 0,
+    difficulty: 1,
+    category: 1,
+    createdDate: "2024-01-01T00:00:00Z",
+    lastReviewedDate: null,
+    reviewCount: 0,
+    isFavorite: false
+  },
 ];

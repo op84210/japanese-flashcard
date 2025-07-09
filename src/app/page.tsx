@@ -5,20 +5,10 @@ import FlashcardComponent from '@/components/FlashcardComponent';
 import ProgressBar from '@/components/ProgressBar';
 import NavigationButtons from '@/components/NavigationButtons';
 import Settings from '@/components/Settings';
-import { FlashcardAPI, sampleFlashcards, formatFlashcardText } from '@/lib/api';
-
-interface FlashcardData {
-  id: number;
-  kanji: string;
-  hiragana: string;
-  katakana: string;
-  meaning: string;
-  category: string;
-  difficulty: string;
-}
+import { FlashcardAPI, sampleFlashcards, formatFlashcardText, Flashcard, categoryMap, difficultyMap } from '@/lib/api';
 
 export default function Home() {
-  const [flashcards, setFlashcards] = useState<FlashcardData[]>([]);
+  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [studiedCards, setStudiedCards] = useState(new Set<number>());
@@ -120,14 +110,21 @@ export default function Home() {
         // 從範例資料中篩選
         const filtered = category === 'all' 
           ? sampleFlashcards 
-          : sampleFlashcards.filter(card => card.category === category);
+          : sampleFlashcards.filter(card => {
+              // 根據 categoryMap 進行比對
+              const categoryId = Object.entries(categoryMap).find(([, name]) => name === category)?.[0];
+              return categoryId ? card.category === parseInt(categoryId) : false;
+            });
         setFlashcards(filtered);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('載入分類失敗:', err);
       const filtered = category === 'all' 
         ? sampleFlashcards 
-        : sampleFlashcards.filter(card => card.category === category);
+        : sampleFlashcards.filter(card => {
+            const categoryId = Object.entries(categoryMap).find(([, name]) => name === category)?.[0];
+            return categoryId ? card.category === parseInt(categoryId) : false;
+          });
       setFlashcards(filtered);
     } finally {
       setIsLoading(false);
@@ -155,14 +152,21 @@ export default function Home() {
         // 從範例資料中篩選
         const filtered = difficulty === 'all' 
           ? sampleFlashcards 
-          : sampleFlashcards.filter(card => card.difficulty === difficulty);
+          : sampleFlashcards.filter(card => {
+              // 根據 difficultyMap 進行比對
+              const difficultyId = Object.entries(difficultyMap).find(([, name]) => name === difficulty)?.[0];
+              return difficultyId ? card.difficulty === parseInt(difficultyId) : false;
+            });
         setFlashcards(filtered);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('載入難度失敗:', err);
       const filtered = difficulty === 'all' 
         ? sampleFlashcards 
-        : sampleFlashcards.filter(card => card.difficulty === difficulty);
+        : sampleFlashcards.filter(card => {
+            const difficultyId = Object.entries(difficultyMap).find(([, name]) => name === difficulty)?.[0];
+            return difficultyId ? card.difficulty === parseInt(difficultyId) : false;
+          });
       setFlashcards(filtered);
     } finally {
       setIsLoading(false);

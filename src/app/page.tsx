@@ -70,7 +70,7 @@ export default function Home() {
       
       // 記錄學習進度到後端
       try {
-        await FlashcardAPI.recordProgress(currentCard.id, true);
+        await FlashcardAPI.recordProgress(currentCard.id);
       } catch (err: unknown) {
         console.warn('記錄進度失敗:', err);
       }

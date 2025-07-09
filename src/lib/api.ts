@@ -90,7 +90,7 @@ export class FlashcardAPI {
   static async getFlashcardsByCategory(categoryName: string): Promise<ApiResponse<Flashcard[]>> {
     try {
       // 將類別名稱轉換為數字 ID
-      const categoryId = Object.entries(categoryMap).find(([_, name]) => name === categoryName)?.[0];
+      const categoryId = Object.entries(categoryMap).find(([key, name]) => name === categoryName)?.[0];
       
       if (!categoryId) {
         // 如果找不到對應的分類，返回所有資料
@@ -127,7 +127,7 @@ export class FlashcardAPI {
   static async getFlashcardsByDifficulty(difficultyName: string): Promise<ApiResponse<Flashcard[]>> {
     try {
       // 將難度名稱轉換為數字 ID
-      const difficultyId = Object.entries(difficultyMap).find(([_, name]) => name === difficultyName)?.[0];
+      const difficultyId = Object.entries(difficultyMap).find(([key, name]) => name === difficultyName)?.[0];
       
       if (!difficultyId) {
         // 如果找不到對應的難度，返回所有資料
@@ -166,12 +166,12 @@ export class FlashcardAPI {
       let url = `${API_BASE_URL}/Flashcards/random?count=${count}`;
       
       if (category && category !== 'all') {
-        const categoryId = Object.entries(categoryMap).find(([_, name]) => name === category)?.[0];
+        const categoryId = Object.entries(categoryMap).find(([key, name]) => name === category)?.[0];
         if (categoryId) url += `&category=${categoryId}`;
       }
       
       if (difficulty && difficulty !== 'all') {
-        const difficultyId = Object.entries(difficultyMap).find(([_, name]) => name === difficulty)?.[0];
+        const difficultyId = Object.entries(difficultyMap).find(([key, name]) => name === difficulty)?.[0];
         if (difficultyId) url += `&difficulty=${difficultyId}`;
       }
 
@@ -202,7 +202,7 @@ export class FlashcardAPI {
   }
 
   // 標記單字卡為已複習
-  static async recordProgress(cardId: number, _isCorrect: boolean): Promise<ApiResponse<void>> {
+  static async recordProgress(cardId: number): Promise<ApiResponse<void>> {
     try {
       const response = await fetch(`${API_BASE_URL}/Flashcards/${cardId}/review`, {
         method: 'POST',

@@ -22,13 +22,13 @@ export default function FlashcardComponent({
   const touchStartX = useRef<number>(0);
   const touchStartY = useRef<number>(0);
 
-  const handleTouchStart = (e: any) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     setIsPressed(true);
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
 
-  const handleTouchEnd = (e: any) => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     setIsPressed(false);
     
     const touchEndX = e.changedTouches[0].clientX;

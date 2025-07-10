@@ -2,42 +2,81 @@
 
 一個現代化的日語學習單字卡應用，專為手機和平板設計，支援觸控操作和響應式介面。
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/japanese-flashcard)
+
 ## 🌟 功能特色
 
-### 核心功能
-- **3D 翻轉卡片**: 點擊卡片查看中文翻譯
-- **滑動手勢**: 向左滑動下一張，向右滑動上一張
-- **學習進度**: 即時進度追蹤和視覺化顯示
-- **分類學習**: 按主題分類（問候語、食物、數字等）
-- **難度分級**: 簡單、中等、困難三個等級
-- **響應式設計**: 完美適配手機、平板和桌面
+### 🎯 學習功能
+- **單字卡學習**: 3D 翻轉效果，支援漢字、平假名、片假名顯示
+- **滑動手勢**: 向左/右滑動切換卡片，點擊翻轉
+- **進度追蹤**: 即時學習進度和複習統計
+- **分類學習**: 12種主題分類（基礎、問候語、食物、數字等）
+- **難度分級**: 4個難度等級（初級、初中級、中級、高級）
 
-### 手機優化
-- 觸控友好的介面設計
-- 手勢滑動支援
-- PWA 支援（可安裝到手機桌面）
-- 離線使用功能
-- 暗色模式支援
+### 📝 管理功能
+- **創建單字卡**: 表單驗證，支援完整的日語表記
+- **編輯管理**: 搜尋、編輯、刪除單字卡
+- **分類篩選**: 按分類和難度篩選
+- **收藏功能**: 標記重要單字卡
+
+### 📱 介面特色
+- **響應式設計**: 完美適配手機、平板、桌面
+- **現代化 UI**: Material Design 風格
+- **暗色模式**: 護眼的深色主題
+- **觸控優化**: 手勢滑動和觸控反饋
+- **PWA 支援**: 可安裝到設備桌面
 
 ## 🚀 快速開始
 
-### 安裝依賴
-```bash
-npm install
-```
+### 本地開發
 
-### 啟動開發伺服器
 ```bash
+# 克隆專案
+git clone https://github.com/your-username/japanese-flashcard.git
+cd japanese-flashcard
+
+# 安裝依賴
+npm install
+
+# 設定環境變數
+cp .env.example .env.local
+# 編輯 .env.local 設定 API URL
+
+# 啟動開發伺服器
 npm run dev
 ```
 
 應用將在 http://localhost:3000 啟動
 
 ### 建置正式版本
+
 ```bash
 npm run build
 npm start
 ```
+
+## 🌐 部署到 Vercel
+
+### 一鍵部署
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/japanese-flashcard)
+
+### 手動部署
+1. Fork 此專案到您的 GitHub
+2. 在 [Vercel](https://vercel.com) 創建新專案
+3. 連接您的 GitHub repository
+4. 設定環境變數：
+   ```
+   NEXT_PUBLIC_API_URL=https://your-api-url.com/api
+   NEXT_PUBLIC_APP_NAME=日語單字卡
+   NEXT_PUBLIC_DEFAULT_LANGUAGE=zh-TW
+   ```
+5. 點擊 Deploy
+
+### 環境變數設定
+在 Vercel Dashboard 中設定以下環境變數：
+- `NEXT_PUBLIC_API_URL`: 後端 API 的 URL
+- `NEXT_PUBLIC_APP_NAME`: 應用程式名稱
+- `NEXT_PUBLIC_DEFAULT_LANGUAGE`: 預設語言
 
 ## 🛠 技術架構
 

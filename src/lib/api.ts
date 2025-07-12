@@ -303,11 +303,11 @@ export class FlashcardAPI {
       
       // 確保數據格式正確
       const requestBody = {
-        kanji: flashcardData.kanji?.trim() || null,
-        hiragana: flashcardData.hiragana?.trim() || null,
-        katakana: flashcardData.katakana?.trim() || null,
-        meaning: flashcardData.meaning?.trim() || null,
-        example: flashcardData.example?.trim() || null,
+        kanji: flashcardData.kanji?.trim() || '',
+        hiragana: flashcardData.hiragana?.trim() || '',
+        katakana: flashcardData.katakana?.trim() || '',
+        meaning: flashcardData.meaning?.trim() || '',
+        example: flashcardData.example?.trim() || '',
         wordType: Number(flashcardData.wordType),
         difficulty: Number(flashcardData.difficulty),
         category: Number(flashcardData.category),

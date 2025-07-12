@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { categoryMap, difficultyMap } from '@/lib/api';
+import { FlashcardAPI, categoryMap, difficultyMap } from '@/lib/api';
 
 interface CreateFlashcardData {
   kanji: string;
@@ -54,25 +54,18 @@ export default function CreateFlashcard() {
     setMessage(null);
 
     try {
-      const response = await fetch('https://japaneseflashcardapi-production.up.railway.app/api/Flashcards', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          kanji: formData.kanji || null,
-          hiragana: formData.hiragana || null,
-          katakana: formData.katakana || null,
-          meaning: formData.meaning,
-          example: formData.example || null,
-          wordType: formData.wordType,
-          difficulty: formData.difficulty,
-          category: formData.category,
-        }),
+      const result = await FlashcardAPI.createFlashcard({
+        kanji: formData.kanji,
+        hiragana: formData.hiragana,
+        katakana: formData.katakana,
+        meaning: formData.meaning,
+        example: formData.example,
+        wordType: formData.wordType,
+        difficulty: formData.difficulty,
+        category: formData.category,
       });
 
-      if (response.ok) {
+      if (result.success) {
         setMessage({ type: 'success', text: '單字卡創建成功！' });
         // 重置表單
         setFormData({
@@ -86,10 +79,9 @@ export default function CreateFlashcard() {
           category: 0,
         });
       } else {
-        const errorData = await response.json().catch(() => null);
         setMessage({ 
           type: 'error', 
-          text: errorData?.title || `創建失敗：HTTP ${response.status}` 
+          text: result.error || '創建失敗'
         });
       }
     } catch (error: unknown) {

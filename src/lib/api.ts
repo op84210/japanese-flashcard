@@ -286,6 +286,96 @@ export class FlashcardAPI {
       };
     }
   }
+
+  // 創建新單字卡
+  static async createFlashcard(flashcardData: {
+    kanji?: string | null;
+    hiragana?: string | null;
+    katakana?: string | null;
+    meaning: string;
+    example?: string | null;
+    wordType: number;
+    difficulty: number;
+    category: number;
+  }): Promise<ApiResponse<Flashcard>> {
+    try {
+      console.log('正在創建單字卡...', flashcardData);
+      
+      // 確保數據格式正確
+      const requestBody = {
+        kanji: flashcardData.kanji?.trim() || null,
+        hiragana: flashcardData.hiragana?.trim() || null,
+        katakana: flashcardData.katakana?.trim() || null,
+        meaning: flashcardData.meaning?.trim() || null,
+        example: flashcardData.example?.trim() || null,
+        wordType: Number(flashcardData.wordType),
+        difficulty: Number(flashcardData.difficulty),
+        category: Number(flashcardData.category),
+        reviewCount: 0,
+        isFavorite: false,
+        createdDate: new Date().toISOString(),
+        lastReviewedDate: null
+      };
+
+      console.log('請求體:', requestBody);
+
+      const response = await fetch(`${API_BASE_URL}/Flashcards`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      console.log(`創建響應狀態: ${response.status}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('創建成功:', data);
+        
+        return {
+          success: true,
+          data: data,
+        };
+      } else {
+        // 詳細的錯誤處理
+        let errorMessage = `創建失敗：HTTP ${response.status}`;
+        
+        try {
+          const errorData = await response.json();
+          console.error('API 錯誤詳情:', errorData);
+          
+          if (errorData.title) {
+            errorMessage = errorData.title;
+          } else if (errorData.errors) {
+            // 處理驗證錯誤
+            const validationErrors = Object.entries(errorData.errors)
+              .map(([field, messages]: [string, any]) => 
+                `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`
+              )
+              .join('\n');
+            errorMessage = `驗證錯誤:\n${validationErrors}`;
+          } else if (errorData.message) {
+            errorMessage = errorData.message;
+          }
+        } catch (parseError) {
+          console.error('解析錯誤響應失敗:', parseError);
+        }
+        
+        return {
+          success: false,
+          error: errorMessage,
+        };
+      }
+    } catch (error) {
+      console.error('創建單字卡網路錯誤:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : '創建失敗，請檢查網路連接',
+      };
+    }
+  }
 }
 
 // 輔助函數：格式化單字卡顯示文字

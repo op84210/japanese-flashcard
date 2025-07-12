@@ -351,9 +351,10 @@ export class FlashcardAPI {
           } else if (errorData.errors) {
             // 處理驗證錯誤
             const validationErrors = Object.entries(errorData.errors)
-              .map(([field, messages]: [string, any]) => 
-                `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`
-              )
+              .map(([field, messages]) => {
+                const messageText = Array.isArray(messages) ? messages.join(', ') : String(messages);
+                return `${field}: ${messageText}`;
+              })
               .join('\n');
             errorMessage = `驗證錯誤:\n${validationErrors}`;
           } else if (errorData.message) {
